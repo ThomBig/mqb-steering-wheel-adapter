@@ -93,7 +93,13 @@ class lib_bus_mqb
                                     DebugLog("\nMQB button: "); DebugLog(response[1], HEX);
                                 }
                             }
-                            pressed_button = response[1];
+                            //============
+                            if (response[1] == button_code_01)  //zmieñ button_code_01 na w³aœciwy kod
+                            	pressed_acc_button = ACC_NEW_1;
+                            else if (response[1] == button_code_02) //zmieñ button_code_02 na w³aœciwy kod
+                            	pressed_acc_button = ACC_NEW_2;
+                            else //============
+                            	pressed_button = response[1];
                             pressed_gear_shifter = (response[6] & 0x0F); // gear pressed
                             if (DEBUG_MQB == 2) {DebugLog("\nMQB button: "); DebugLog(pressed_button, HEX);}
                             state = IDLE;
@@ -175,6 +181,8 @@ class lib_bus_mqb
         ACC_MINUS,
         ACC_PLUS,
         ACC_DIST,
+		ACC_NEW_1,
+		ACC_NEW_2,
     } pressed_acc_button = 0;
     uint8_t light_data[4];
     void forceLightData(bool light_on) {

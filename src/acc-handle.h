@@ -16,6 +16,8 @@ class AccHandle {
     const uint8_t ACC_DIST_PLUS_PIN = A1;
     const uint8_t ACC_DIST_MINUS_PIN = A2;
     const uint8_t ACC_SET_PIN = A3;
+    const uint8_t ACC_NEW_1_PIN = A3; //zmieñ na w³aœciwy
+    const uint8_t ACC_NEW_2_PIN = A3; //zmieñ na w³aœciwy
 public:
     bool accOn = false;
     unsigned long distPressedTimer;
@@ -28,6 +30,8 @@ public:
         pinMode(ACC_DIST_PLUS_PIN, OUTPUT);
         pinMode(ACC_DIST_MINUS_PIN, OUTPUT);
         pinMode(ACC_SET_PIN, OUTPUT);
+        pinMode(ACC_NEW_1_PIN, OUTPUT);
+        pinMode(ACC_NEW_2_PIN, OUTPUT);
         accOn = EEPROM.read(EEPROM_ACC_ON_ADDRESS);
         distPressedTimer = 0;
     }
@@ -65,6 +69,8 @@ public:
         uint8_t ACC_DIST_PLUS = (distPressedTimer > time) && (pressedAccButton == lib_bus_mqb::ACC_PLUS) ? HIGH : LOW;
         uint8_t ACC_DIST_MINUS = (distPressedTimer > time) && (pressedAccButton == lib_bus_mqb::ACC_MINUS) ? HIGH : LOW;
         uint8_t ACC_SET = (pressedAccButton == lib_bus_mqb::ACC_SET) ? HIGH : LOW;
+        uint8_t ACC_NEW_1 = (pressedAccButton == lib_bus_mqb::ACC_NEW_1) ? HIGH : LOW;
+        uint8_t ACC_NEW_2 = (pressedAccButton == lib_bus_mqb::ACC_NEW_2) ? HIGH : LOW;
         digitalWrite(ACC_ON_PIN, ACC_ON);
         digitalWrite(ACC_RESUME_PIN, ACC_RESUME);
         digitalWrite(ACC_CANCEL_PIN, ACC_CANCEL);
@@ -73,6 +79,8 @@ public:
         digitalWrite(ACC_DIST_PLUS_PIN, ACC_DIST_PLUS);
         digitalWrite(ACC_DIST_MINUS_PIN, ACC_DIST_MINUS);
         digitalWrite(ACC_SET_PIN, ACC_SET);
+        digitalWrite(ACC_NEW_1_PIN, ACC_NEW_1);
+        digitalWrite(ACC_NEW_2_PIN, ACC_NEW_2);
         // if (DEBUG_ACC == 2) {
         //     DebugLog("\nACC handle: ");
         //     DebugLog("BTN: "); DebugLog(pressedAccButton, HEX); DebugLog(" "); 
